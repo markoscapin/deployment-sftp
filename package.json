@@ -1,0 +1,98 @@
+{
+  "name": "deployment-sftp",
+  "displayName": "deployment-sftp",
+  "description": "",
+  "version": "0.0.2",
+  "engines": {
+    "vscode": "^1.102.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:deployment-sftp.helloWorld",
+    "onCommand:deployment-sftp.switchProfile",
+    "onCommand:deployment-sftp.addProfile",
+    "onCommand:deployment-sftp.editProfile",
+    "onCommand:deployment-sftp.removeProfile"
+  ],
+  "main": "./out/extension.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/markoscapin/deployment-sftp.git"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "deployment-sftp.helloWorld",
+        "title": "Hello World"
+      },
+      {
+        "command": "deployment-sftp.switchProfile",
+        "title": "Switch SFTP Deployment Profile"
+      },
+      {
+        "command": "deployment-sftp.addProfile",
+        "title": "Add SFTP Deployment Profile"
+      },
+      {
+        "command": "deployment-sftp.editProfile",
+        "title": "Edit SFTP Deployment Profile"
+      },
+      {
+        "command": "deployment-sftp.removeProfile",
+        "title": "Remove SFTP Deployment Profile"
+      },
+      {
+        "command": "deployment-sftp.manageProfiles",
+        "title": "Manage SFTP Deployment Profiles"
+      },
+      {
+        "command": "deployment-sftp.deployFile",
+        "title": "SFTP: Deploy This File"
+      },
+      {
+        "command": "deployment-sftp.diffFile",
+        "title": "SFTP: Diff With Remote"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "deployment-sftp.deployFile",
+          "when": "resourceLangId != ''",
+          "group": "navigation"
+        },
+        {
+          "command": "deployment-sftp.diffFile",
+          "when": "resourceLangId != ''",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "@types/node": "18.x",
+    "@types/ssh2": "^1.15.5",
+    "@types/vscode": "^1.102.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.2",
+    "@typescript-eslint/parser": "^7.0.2",
+    "@vscode/test-cli": "^0.0.6",
+    "@vscode/test-electron": "^2.3.9",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "ssh2": "^1.16.0"
+  }
+}
