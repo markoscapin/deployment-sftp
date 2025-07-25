@@ -153,6 +153,9 @@ export function activate(context: vscode.ExtensionContext) {
 		if (!selected) return;
 		const removed = profiles.splice(selected.index, 1);
 		writeProfiles(profiles);
+		// Delete password from SecretStorage
+		await vscode.commands.executeCommand('setContext', 'sftpProfileDeleted', true);
+		await context.secrets.delete(`sftp-password-${removed[0].name}`);
 		vscode.window.showInformationMessage(`Removed SFTP profile: ${removed[0].name}`);
 		updateStatusBar(profiles);
 	}));
@@ -429,8 +432,10 @@ export function activate(context: vscode.ExtensionContext) {
 				editingIndex = msg.index;
 				await updateWebview();
 			} else if (msg.type === 'remove') {
-				profiles.splice(msg.index, 1);
+				const removed = profiles.splice(msg.index, 1);
 				writeProfiles(profiles);
+				// Delete password from SecretStorage
+				await context.secrets.delete(`sftp-password-${removed[0].name}`);
 				editingIndex = null;
 				await updateWebview();
 			} else if (msg.type === 'save') {
